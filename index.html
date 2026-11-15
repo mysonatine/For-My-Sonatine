@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For You — The Bouquet Wall of Support</title>
+  <title>For Ekin — The Bouquet Wall of Support</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -61,10 +61,10 @@
   <div id="envelope-screen" class="fixed inset-0 z-50 bg-[#fcf9f4] flex flex-col items-center justify-center p-4">
     <div class="text-center mb-8 max-w-md px-4">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#f0e6dc] text-xs font-semibold uppercase tracking-wider text-rose-500 mb-4 shadow-sm">
-        <span>🌷</span> A Gentle Delivery For You
+        <span>🌷</span> Specially For Ekin
       </div>
       <h2 class="text-2xl md:text-3xl font-bold text-[#4a3b35] mb-2">You Have a Special Letter 💌</h2>
-      <p class="text-[#7d6b63] text-sm">Tap the pastel envelope below to open your bouquet wall of sweet encouragement.</p>
+      <p class="text-[#7d6b63] text-sm">Tap the pastel envelope below to open your wall of sweet encouragement.</p>
     </div>
 
     <!-- The Interactive Envelope -->
@@ -85,10 +85,11 @@
     <!-- Header -->
     <header class="max-w-5xl mx-auto px-6 pt-12 pb-8 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#f0e6dc] text-xs font-semibold uppercase tracking-wider text-rose-500 mb-5 shadow-sm">
-        <span>🌸</span> A Safe Space Built With Love
+        <span>🌸</span> A Safe Space Built With Love For Ekin
       </div>
       <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-[#4a3b35] mb-4">
-        Keep Going, <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-500 to-teal-600">You’ve Got This.</span>
+        Dear Ekin,<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-500 to-teal-600">Rest if you must, but don't forget how deeply you are loved.</span>
       </h1>
       <p class="text-[#7d6b63] max-w-xl mx-auto text-sm md:text-base leading-relaxed">
         A cozy collection of bouquets and sweet messages from people who cherish you. Whenever your days feel heavy, remember you never walk alone.
@@ -136,7 +137,7 @@
 
     <!-- Wall Grid -->
     <main class="max-w-5xl mx-auto px-6 pb-20">
-      <div id="loading" class="text-center py-12 text-[#9c8980] text-sm font-medium">Gathering lovely bouquets...</div>
+      <div id="loading" class="text-center py-12 text-[#9c8980] text-sm font-medium">Gathering lovely bouquets for Ekin...</div>
       <div id="wall-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </main>
   </div>
@@ -155,7 +156,7 @@
         <div class="flex flex-col justify-between h-full space-y-4">
           <div>
             <p id="modal-date" class="text-xs font-semibold text-[#a89990] uppercase tracking-wider mb-2"></p>
-            <h3 class="text-lg font-bold text-[#4a3b35] mb-3">To the one I love,</h3>
+            <h3 class="text-lg font-bold text-[#4a3b35] mb-3">To Ekin,</h3>
             <div id="modal-content" class="handwritten text-[#5c4a42] bg-[#fcf9f4] p-4 rounded-xl border border-[#f7f0e8] min-h-[140px]"></div>
           </div>
           <div class="flex items-center justify-between pt-3 border-t border-[#f7f0e8]">
@@ -173,7 +174,7 @@
   <div id="modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="postcard-card rounded-3xl max-w-md w-full p-6 md:p-8 relative shadow-2xl">
       <div class="flex items-center justify-between mb-5">
-        <h2 class="text-lg font-bold text-[#4a3b35]">Send a Bouquet & Note 💐</h2>
+        <h2 class="text-lg font-bold text-[#4a3b35]">Send a Bouquet & Note to Ekin 💐</h2>
         <button onclick="closeModal()" class="text-[#a89990] hover:text-[#4a3b35] font-bold">✕</button>
       </div>
 
@@ -214,8 +215,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-[#7d6b63] mb-1.5">Your Sweet Message</label>
-          <textarea id="content" rows="4" required placeholder="Write your words of encouragement, love, and appreciation here..." class="w-full px-4 py-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] text-sm text-[#4a3b35] focus:outline-none focus:border-rose-400"></textarea>
+          <label class="block text-xs font-bold text-[#7d6b63] mb-1.5">Your Sweet Message for Ekin</label>
+          <textarea id="content" rows="4" required placeholder="Write your words of encouragement, love, and comfort here..." class="w-full px-4 py-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] text-sm text-[#4a3b35] focus:outline-none focus:border-rose-400"></textarea>
           <p class="text-[11px] text-[#a89990] mt-1">✨ Words will be hand-styled with matching pastel highlighters automatically.</p>
         </div>
 
@@ -236,13 +237,12 @@
     let currentFilter = 'all';
 
     const defaultBoosts = [
-      "Small daily progress adds up to wonderful things. Take a deep breath and smile.",
+      "Small daily progress adds up to wonderful things. Take a deep breath and smile, Ekin.",
       "You have conquered every hard day before this one. Today is no exception.",
-      "Focus on what you can control today. You are much stronger than you realize.",
+      "Focus on what you can control today. You are much stronger than you realize, Ekin.",
       "Thank you for fighting so hard. I am endlessly proud of your journey!"
     ];
 
-    // SVG Bouquet Generators matching theme colors
     function getBouquetSvg(category) {
       let ribbonColor = "#f472b6";
       let wrapColor = "#fdf2f8";
@@ -269,16 +269,13 @@
 
       return `
         <svg viewBox="0 0 200 220" class="w-36 h-36 md:w-44 md:h-44 drop-shadow-sm">
-          <!-- Wrapper Papers -->
           <path d="M60 120 L100 200 L140 120 Z" fill="${wrapColor}" stroke="#4a3b35" stroke-width="2.5" stroke-linejoin="round"/>
           <path d="M50 100 Q100 80 150 100 L130 180 Q100 205 70 180 Z" fill="${wrapColor}" opacity="0.85" stroke="#4a3b35" stroke-width="2.5"/>
           
-          <!-- Stems -->
           <line x1="90" y1="120" x2="80" y2="180" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
           <line x1="100" y1="110" x2="100" y2="190" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
           <line x1="110" y1="120" x2="120" y2="180" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
 
-          <!-- Flowers Cluster -->
           <circle cx="85" cy="85" r="18" fill="${petal1}" stroke="#4a3b35" stroke-width="2"/>
           <circle cx="85" cy="85" r="6" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
 
@@ -289,182 +286,4 @@
           <circle cx="100" cy="65" r="6" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
 
           <circle cx="70" cy="100" r="14" fill="${petal2}" stroke="#4a3b35" stroke-width="2"/>
-          <circle cx="70" cy="100" r="4" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
-
-          <circle cx="130" cy="95" r="15" fill="${petal2}" stroke="#4a3b35" stroke-width="2"/>
-          <circle cx="130" cy="95" r="5" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
-
-          <!-- Ribbon Bow -->
-          <path d="M85 160 Q100 150 115 160 Q125 175 110 180 Q100 165 90 180 Q75 175 85 160 Z" fill="${ribbonColor}" stroke="#4a3b35" stroke-width="2"/>
-          <circle cx="100" cy="163" r="6" fill="${ribbonColor}" stroke="#4a3b35" stroke-width="2"/>
-        </svg>
-      `;
-    }
-
-    function openEnvelope() {
-      confetti({ particleCount: 90, spread: 80, origin: { y: 0.5 }, colors: ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc'] });
-      
-      const screen = document.getElementById('envelope-screen');
-      screen.style.opacity = '0';
-      screen.style.transform = 'scale(1.05)';
-      
-      setTimeout(() => {
-        screen.style.display = 'none';
-        const main = document.getElementById('main-content');
-        main.classList.remove('hidden');
-        setTimeout(() => main.classList.remove('opacity-0'), 50);
-        fetchMessages();
-      }, 600);
-    }
-
-    async function fetchMessages() {
-      const { data, error } = await db
-        .from('messages')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      document.getElementById('loading').classList.add('hidden');
-
-      if (error) {
-        console.error(error);
-        document.getElementById('wall-grid').innerHTML = `
-          <div class="col-span-full text-center text-sm text-rose-500 bg-rose-50 border border-rose-200 rounded-2xl p-4">
-            Unable to load bouquet messages from database.
-          </div>`;
-        return;
-      }
-
-      allMessages = data;
-      renderWall();
-    }
-
-    function renderWall() {
-      const grid = document.getElementById('wall-grid');
-      const filtered = currentFilter === 'all' 
-        ? allMessages 
-        : allMessages.filter(m => m.category === currentFilter);
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-12 text-[#9c8980] text-sm font-medium">No bouquets in this theme yet. Be the first to send one!</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(msg => {
-        let bouquetName = '🌷 Pink Roses';
-        let highlightClass = 'highlight-pink';
-        
-        if (msg.category === 'yellow') {
-          bouquetName = '🌻 Warm Sunflower';
-          highlightClass = 'highlight-yellow';
-        } else if (msg.category === 'blue') {
-          bouquetName = '🦋 Pastel Blue';
-          highlightClass = 'highlight-blue';
-        } else if (msg.category === 'purple') {
-          bouquetName = '💜 Lavender Dreams';
-          highlightClass = 'highlight-purple';
-        }
-
-        const dateStr = new Date(msg.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        const svgArt = getBouquetSvg(msg.category);
-
-        // Escape content safely for JSON embedding in onclick
-        const safeContent = encodeURIComponent(msg.content);
-        const safeSender = encodeURIComponent(msg.sender);
-
-        return `
-          <div onclick="openPostcardModal('${bouquetName}', '${safeContent}', '${safeSender}', '${dateStr}', ${msg.likes || 0}, '${msg.category}')" class="postcard-card rounded-2xl p-5 flex flex-col items-center text-center cursor-pointer relative group">
-            <div class="mb-3 transform group-hover:scale-105 transition-transform duration-300">
-              ${svgArt}
-            </div>
-            <div class="w-full">
-              <div class="flex items-center justify-between mb-2 text-xs">
-                <span class="px-2.5 py-0.5 rounded-md bg-[#fcf9f4] border border-[#f0e6dc] font-bold text-[#7d6b63]">${bouquetName}</span>
-                <span class="text-[#a89990]">${dateStr}</span>
-              </div>
-              <p class="handwritten text-[#5c4a42] line-clamp-2 my-2">"<span class="${highlightClass}">${escapeHtml(msg.content)}</span>"</p>
-              <div class="flex items-center justify-between pt-3 border-t border-[#f7f0e8] text-xs mt-2">
-                <span class="font-bold text-[#7d6b63]">From: ${escapeHtml(msg.sender)}</span>
-                <span class="text-rose-500 font-semibold flex items-center gap-1">❤️ ${msg.likes || 0}</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function openPostcardModal(bouquetName, encodedContent, encodedSender, dateStr, likes, category) {
-      const content = decodeURIComponent(encodedContent);
-      const sender = decodeURIComponent(encodedSender);
-      
-      let highlightClass = 'highlight-pink';
-      if (category === 'yellow') highlightClass = 'highlight-yellow';
-      if (category === 'blue') highlightClass = 'highlight-blue';
-      if (category === 'purple') highlightClass = 'highlight-purple';
-
-      document.getElementById('modal-bouquet-art').innerHTML = getBouquetSvg(category);
-      document.getElementById('modal-date').textContent = `${bouquetName} • ${dateStr}`;
-      document.getElementById('modal-content').innerHTML = `"<span class="${highlightClass}">${escapeHtml(content)}</span>"`;
-      document.getElementById('modal-sender').textContent = `From: ${escapeHtml(sender)}`;
-      document.getElementById('modal-likes').textContent = likes;
-
-      document.getElementById('postcard-modal').classList.remove('hidden');
-    }
-
-    function closePostcardModal() {
-      document.getElementById('postcard-modal').classList.add('hidden');
-    }
-
-    document.getElementById('message-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = 'Tying ribbon...';
-
-      const sender = document.getElementById('sender').value.trim();
-      const content = document.getElementById('content').value.trim();
-      const category = document.querySelector('input[name="category"]:checked').value;
-
-      const { error } = await db.from('messages').insert([{ sender, category, content, likes: 0 }]);
-
-      btn.disabled = false;
-      btn.textContent = 'Tie Ribbon & Send';
-
-      if (!error) {
-        document.getElementById('message-form').reset();
-        closeModal();
-        confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 }, colors: ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc'] });
-        fetchMessages();
-      } else {
-        alert('Failed to send bouquet. Please check your connection.');
-      }
-    });
-
-    function filterMessages(cat) {
-      currentFilter = cat;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-[#4a3b35]', 'text-white');
-        btn.classList.add('bg-white', 'text-[#7d6b63]', 'border', 'border-[#f0e6dc]');
-      });
-      const activeBtn = document.getElementById(`filter-${cat}`);
-      activeBtn.classList.remove('bg-white', 'text-[#7d6b63]', 'border', 'border-[#f0e6dc]');
-      activeBtn.classList.add('bg-[#4a3b35]', 'text-white');
-      renderWall();
-    }
-
-    function triggerBoost() {
-      const pool = allMessages.length > 0 ? allMessages.map(m => `"${m.content}" — ${m.sender}`) : defaultBoosts;
-      const randomQuote = pool[Math.floor(Math.random() * pool.length)];
-      document.getElementById('boost-text').textContent = randomQuote;
-      document.getElementById('boost-banner').classList.remove('hidden');
-      confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 }, colors: ['#f472b6', '#fbbf24'] });
-    }
-
-    function openModal() { document.getElementById('modal').classList.remove('hidden'); }
-    function closeModal() { document.getElementById('modal').classList.add('hidden'); }
-
-    function escapeHtml(str) {
-      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
-    }
-  </script>
-</body>
-</html>
+          <circle cx="70" cy="100" r="4" fill="${flowerCenter}" stroke="#4a
