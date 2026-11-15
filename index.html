@@ -18,13 +18,18 @@
         radial-gradient(circle at 85% 80%, rgba(212, 237, 218, 0.45), transparent 35%);
       min-height: 100vh;
     }
-    .handwritten { font-family: 'Caveat', cursive; font-size: 1.4rem; line-height: 1.5; }
+    .handwritten { font-family: 'Caveat', cursive; font-size: 1.45rem; line-height: 1.5; }
     .postcard { background: #fff; border: 1.5px solid #f0e6dc; box-shadow: 0 10px 25px -5px rgba(120,100,90,0.08); transition: 0.25s; }
     .postcard:hover { transform: translateY(-4px); box-shadow: 0 15px 35px -8px rgba(120,100,90,0.15); }
-    .hl-pink { background: rgba(255, 192, 203, 0.45); padding: 0 5px; border-radius: 4px; }
-    .hl-yellow { background: rgba(255, 243, 176, 0.65); padding: 0 5px; border-radius: 4px; }
-    .hl-blue { background: rgba(199, 228, 255, 0.55); padding: 0 5px; border-radius: 4px; }
-    .hl-purple { background: rgba(224, 209, 255, 0.5); padding: 0 5px; border-radius: 4px; }
+    
+    /* Soft Highlighter Styles */
+    .hl-red { background: rgba(254, 202, 202, 0.55); padding: 0 5px; border-radius: 4px; }
+    .hl-orange { background: rgba(254, 215, 170, 0.6); padding: 0 5px; border-radius: 4px; }
+    .hl-yellow { background: rgba(254, 240, 138, 0.6); padding: 0 5px; border-radius: 4px; }
+    .hl-green { background: rgba(187, 247, 208, 0.55); padding: 0 5px; border-radius: 4px; }
+    .hl-blue { background: rgba(191, 219, 254, 0.55); padding: 0 5px; border-radius: 4px; }
+    .hl-indigo { background: rgba(199, 210, 254, 0.55); padding: 0 5px; border-radius: 4px; }
+    .hl-purple { background: rgba(233, 213, 255, 0.55); padding: 0 5px; border-radius: 4px; }
   </style>
 </head>
 <body class="antialiased selection:bg-pink-200">
@@ -51,13 +56,12 @@
   <div id="main-app" class="hidden opacity-0 transition-opacity duration-700">
     <header class="max-w-5xl mx-auto px-6 pt-12 pb-8 text-center">
       <span class="inline-block px-4 py-1.5 rounded-full bg-white border border-[#f0e6dc] text-xs font-bold uppercase tracking-wider text-rose-500 mb-5 shadow-sm">🌸 A Safe Space Built With Love For Ekin</span>
-      <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-        Dear Ekin,<br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-500 to-teal-600">Rest if you must, but don't forget how deeply you are loved.</span>
+      
+      <!-- REVISI 1 & 2: "Dear Ekin," berwarna & kalimat utama diganti -->
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+        <span class="bg-rose-200/60 px-3 py-1 rounded-xl text-rose-700 inline-block mb-3">Dear Ekin,</span><br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-500 to-emerald-600">Rest if you must, but don't forget how deeply you are loved.</span>
       </h1>
-      <p class="text-[#7d6b63] max-w-xl mx-auto text-sm md:text-base">
-        A cozy collection of bouquets and sweet messages from people who cherish you. Whenever your days feel heavy, remember you never walk alone.
-      </p>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <button onclick="toggleModal('form-modal', true)" class="px-5 py-2.5 rounded-xl bg-[#4a3b35] text-white font-semibold text-sm hover:bg-[#332722] transition shadow-md">+ Send a Bouquet & Note</button>
@@ -66,9 +70,12 @@
 
       <div class="mt-8 flex flex-wrap justify-center gap-2 text-xs">
         <button onclick="setFilter('all')" id="btn-all" class="f-btn px-4 py-1.5 rounded-lg bg-[#4a3b35] text-white font-semibold">All Bouquets</button>
-        <button onclick="setFilter('pink')" id="btn-pink" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🌷 Pink Roses</button>
+        <button onclick="setFilter('red')" id="btn-red" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🌹 Red Roses</button>
+        <button onclick="setFilter('orange')" id="btn-orange" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🍊 Orange Peonies</button>
         <button onclick="setFilter('yellow')" id="btn-yellow" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🌻 Sunflowers</button>
+        <button onclick="setFilter('green')" id="btn-green" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🌿 Leafy Green</button>
         <button onclick="setFilter('blue')" id="btn-blue" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🦋 Pastel Blue</button>
+        <button onclick="setFilter('indigo')" id="btn-indigo" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">🔮 Indigo Dreams</button>
         <button onclick="setFilter('purple')" id="btn-purple" class="f-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] font-semibold">💜 Lavender</button>
       </div>
     </header>
@@ -84,7 +91,7 @@
     </div>
 
     <main class="max-w-5xl mx-auto px-6 pb-20">
-      <div id="loader" class="text-center py-12 text-[#9c8980] text-sm font-semibold">Gathering lovely bouquets for Ekin...</div>
+      <div id="loader" class="text-center py-12 text-[#9c8980] text-sm font-semibold">Gathering lovely handmade bouquets for Ekin...</div>
       <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </main>
   </div>
@@ -118,12 +125,15 @@
           <input type="text" id="inp-sender" required placeholder="Your name / initial" class="w-full px-3.5 py-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] text-sm">
         </div>
         <div>
-          <label class="block text-xs font-bold text-[#7d6b63] mb-1">Bouquet Theme</label>
+          <label class="block text-xs font-bold text-[#7d6b63] mb-1">Bouquet Theme & Color</label>
           <div class="grid grid-cols-2 gap-2 text-xs font-bold">
-            <label class="cursor-pointer"><input type="radio" name="cat" value="pink" class="peer sr-only" checked><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-rose-400 peer-checked:bg-rose-50 text-center">🌷 Pink Roses</div></label>
+            <label class="cursor-pointer"><input type="radio" name="cat" value="red" class="peer sr-only" checked><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-red-400 peer-checked:bg-red-50 text-center">🌹 Red Roses</div></label>
+            <label class="cursor-pointer"><input type="radio" name="cat" value="orange" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-orange-400 peer-checked:bg-orange-50 text-center">🍊 Orange Peonies</div></label>
             <label class="cursor-pointer"><input type="radio" name="cat" value="yellow" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-amber-400 peer-checked:bg-amber-50 text-center">🌻 Sunflowers</div></label>
+            <label class="cursor-pointer"><input type="radio" name="cat" value="green" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-emerald-400 peer-checked:bg-emerald-50 text-center">🌿 Leafy Green</div></label>
             <label class="cursor-pointer"><input type="radio" name="cat" value="blue" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-sky-400 peer-checked:bg-sky-50 text-center">🦋 Pastel Blue</div></label>
-            <label class="cursor-pointer"><input type="radio" name="cat" value="purple" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-purple-400 peer-checked:bg-purple-50 text-center">💜 Lavender</div></label>
+            <label class="cursor-pointer"><input type="radio" name="cat" value="indigo" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-indigo-400 peer-checked:bg-indigo-50 text-center">🔮 Indigo Dreams</div></label>
+            <label class="cursor-pointer col-span-2"><input type="radio" name="cat" value="purple" class="peer sr-only"><div class="p-2 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-purple-400 peer-checked:bg-purple-50 text-center">💜 Lavender</div></label>
           </div>
         </div>
         <div>
@@ -136,18 +146,56 @@
   </div>
 
   <script>
-    const db = window.supabase.createClient('https://ydbennrbvouvlrchpqdt.supabase.co', 'sb_publishable_DWctMYcYbAgKk074Uys45A_umsYCPqT');
+    const db = window.supabase.createClient('https://ydbennrbvouvlrchpqdt.supabase.co', 'sb_publishable_DwctMYcYbAgKk074Uys45A_umsYCPqT');
     let msgs = [], curFilter = 'all';
     const boosts = ["Take a deep breath, Ekin. You never walk alone.", "Rest if you must, but remember how deeply you are loved.", "Even the heaviest days will pass. I am so proud of you."];
 
+    // REVISI 3: Ilustrasi Buket Sketsa Tangan (Handmade Aesthetic dengan 7 Varian Warna Lengkap)
     function getSvg(c) {
-      const cols = {
-        pink: ['#f472b6','#fdf2f8','#f43f5e','#fb7185'],
-        yellow: ['#fbbf24','#fffbeb','#f59e0b','#fbbf24'],
-        blue: ['#38bdf8','#f0f9ff','#0ea5e9','#38bdf8'],
-        purple: ['#c084fc','#faf5ff','#a855f7','#c084fc']
-      }[c] || ['#f472b6','#fdf2f8','#f43f5e','#fb7185'];
-      return `<svg viewBox="0 0 200 210" class="w-36 h-36 mx-auto"><path d="M60 115 L100 195 L140 115 Z" fill="${cols[1]}" stroke="#4a3b35" stroke-width="2.5"/><path d="M50 95 Q100 75 150 95 L130 175 Q100 200 70 175 Z" fill="${cols[1]}" opacity="0.85" stroke="#4a3b35" stroke-width="2.5"/><line x1="100" y1="105" x2="100" y2="185" stroke="#4ade80" stroke-width="3"/><circle cx="85" cy="80" r="17" fill="${cols[2]}" stroke="#4a3b35" stroke-width="2"/><circle cx="115" cy="75" r="15" fill="${cols[3]}" stroke="#4a3b35" stroke-width="2"/><circle cx="100" cy="60" r="16" fill="${cols[2]}" stroke="#4a3b35" stroke-width="2"/><path d="M85 155 Q100 145 115 155 Q125 170 110 175 Q100 160 90 175 Q75 170 85 155 Z" fill="${cols[0]}" stroke="#4a3b35" stroke-width="2"/></svg>`;
+      const themes = {
+        red: { wrap: '#fef2f2', ribbon: '#ef4444', p1: '#dc2626', p2: '#f87171' },
+        orange: { wrap: '#fff7ed', ribbon: '#f97316', p1: '#ea580c', p2: '#fb923c' },
+        yellow: { wrap: '#fefce8', ribbon: '#eab308', p1: '#ca8a04', p2: '#facc15' },
+        green: { wrap: '#f0fdf4', ribbon: '#10b981', p1: '#059669', p2: '#34d399' },
+        blue: { wrap: '#f0f9ff', ribbon: '#0284c7', p1: '#0284c7', p2: '#38bdf8' },
+        indigo: { wrap: '#eef2ff', ribbon: '#4f46e5', p1: '#4338ca', p2: '#818cf8' },
+        purple: { wrap: '#faf5ff', ribbon: '#9333ea', p1: '#7e22ce', p2: '#c084fc' }
+      };
+      const t = themes[c] || themes.red;
+
+      return `
+        <svg viewBox="0 0 200 210" class="w-36 h-36 mx-auto drop-shadow-sm">
+          <!-- Sketch Wrapper Layers -->
+          <path d="M55 110 L100 195 L145 110 Z" fill="${t.wrap}" stroke="#4a3b35" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="100 2 2 2"/>
+          <path d="M45 95 Q100 70 155 95 L135 175 Q100 205 65 175 Z" fill="${t.wrap}" opacity="0.8" stroke="#4a3b35" stroke-width="2.2"/>
+          
+          <!-- Stems -->
+          <line x1="85" y1="110" x2="75" y2="175" stroke="#15803d" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="100" y2="185" stroke="#15803d" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="115" y1="110" x2="125" y2="175" stroke="#15803d" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Handmade Detailed Flowers -->
+          <circle cx="85" cy="75" r="18" fill="${t.p1}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="85" cy="75" r="6" fill="#fef08a" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="115" cy="70" r="16" fill="${t.p2}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="115" cy="70" r="5" fill="#fef08a" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="100" cy="55" r="17" fill="${t.p1}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="100" cy="55" r="6" fill="#fef08a" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="65" cy="90" r="13" fill="${t.p2}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="135" cy="85" r="14" fill="${t.p2}" stroke="#4a3b35" stroke-width="2"/>
+
+          <!-- Sketchy Bow Ribbon -->
+          <path d="M75 155 Q100 140 125 155 Q135 175 115 180 Q100 160 85 180 Q65 175 75 155 Z" fill="${t.ribbon}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="100" cy="158" r="6" fill="${t.ribbon}" stroke="#4a3b35" stroke-width="2"/>
+          
+          <!-- Little Sparkles & Stars -->
+          <text x="35" y="60" font-size="14">✨</text>
+          <text x="155" y="110" font-size="12">⭐</text>
+        </svg>
+      `;
     }
 
     function openEnv() {
@@ -173,15 +221,16 @@
       const g = document.getElementById('grid');
       const list = curFilter === 'all' ? msgs : msgs.filter(x => x.category === curFilter);
       if (!list.length) { g.innerHTML = `<div class="col-span-full text-center py-10 text-[#9c8980] text-sm">No bouquets yet. Be the first to send one for Ekin!</div>`; return; }
-      const names = { pink: '🌷 Pink Roses', yellow: '🌻 Sunflowers', blue: '🦋 Pastel Blue', purple: '💜 Lavender' };
-      const hls = { pink: 'hl-pink', yellow: 'hl-yellow', blue: 'hl-blue', purple: 'hl-purple' };
+      
+      const names = { red: '🌹 Red Roses', orange: '🍊 Orange Peonies', yellow: '🌻 Sunflowers', green: '🌿 Leafy Green', blue: '🦋 Pastel Blue', indigo: '🔮 Indigo Dreams', purple: '💜 Lavender' };
+      const hls = { red: 'hl-red', orange: 'hl-orange', yellow: 'hl-yellow', green: 'hl-green', blue: 'hl-blue', indigo: 'hl-indigo', purple: 'hl-purple' };
 
       g.innerHTML = list.map((m, idx) => `
         <div onclick="readCard(${idx})" class="postcard rounded-2xl p-5 flex flex-col items-center text-center cursor-pointer">
           ${getSvg(m.category)}
           <div class="w-full mt-2">
             <span class="px-2.5 py-0.5 rounded-md bg-[#fcf9f4] border border-[#f0e6dc] text-xs font-bold text-[#7d6b63]">${names[m.category] || '🌷 Bouquet'}</span>
-            <p class="handwritten text-[#5c4a42] line-clamp-2 my-2">"<span class="${hls[m.category] || 'hl-pink'}">${esc(m.content)}</span>"</p>
+            <p class="handwritten text-[#5c4a42] line-clamp-2 my-2">"<span class="${hls[m.category] || 'hl-red'}">${esc(m.content)}</span>"</p>
             <p class="text-xs font-bold text-[#7d6b63] pt-2 border-t border-[#f7f0e8]">From: ${esc(m.sender)}</p>
           </div>
         </div>
@@ -191,11 +240,12 @@
     function readCard(idx) {
       const list = curFilter === 'all' ? msgs : msgs.filter(x => x.category === curFilter);
       const m = list[idx];
-      const names = { pink: '🌷 Pink Roses', yellow: '🌻 Sunflowers', blue: '🦋 Pastel Blue', purple: '💜 Lavender' };
-      const hls = { pink: 'hl-pink', yellow: 'hl-yellow', blue: 'hl-blue', purple: 'hl-purple' };
+      const names = { red: '🌹 Red Roses', orange: '🍊 Orange Peonies', yellow: '🌻 Sunflowers', green: '🌿 Leafy Green', blue: '🦋 Pastel Blue', indigo: '🔮 Indigo Dreams', purple: '💜 Lavender' };
+      const hls = { red: 'hl-red', orange: 'hl-orange', yellow: 'hl-yellow', green: 'hl-green', blue: 'hl-blue', indigo: 'hl-indigo', purple: 'hl-purple' };
+      
       document.getElementById('r-art').innerHTML = getSvg(m.category);
       document.getElementById('r-meta').textContent = names[m.category] || '🌷 Bouquet';
-      document.getElementById('r-body').innerHTML = `"<span class="${hls[m.category] || 'hl-pink'}">${esc(m.content)}</span>"`;
+      document.getElementById('r-body').innerHTML = `"<span class="${hls[m.category] || 'hl-red'}">${esc(m.content)}</span>"`;
       document.getElementById('r-from').textContent = `With love, ${esc(m.sender)}`;
       toggleModal('read-modal', true);
     }
@@ -214,6 +264,8 @@
         toggleModal('form-modal', false);
         confetti({ particleCount: 50, spread: 60 });
         loadMsgs();
+      } else {
+        alert('Gagal mengirim pesan. Pastikan tabel Supabase sudah mengizinkan publik (Insert Policy).');
       }
     });
 
