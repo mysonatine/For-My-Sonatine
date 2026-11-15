@@ -1,158 +1,234 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For You — Wall of Support</title>
+  <title>For You — The Bouquet Wall of Support</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0b0f19;
-      color: #f8fafc;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fcf9f4;
+      color: #382e2c;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(220, 38, 38, 0.08), transparent 28%),
-        radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.09), transparent 30%),
-        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.08), transparent 32%);
+        radial-gradient(circle at 10% 20%, rgba(255, 214, 224, 0.4), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(212, 237, 218, 0.4), transparent 35%),
+        radial-gradient(circle at 50% 50%, rgba(222, 235, 255, 0.3), transparent 40%);
       min-height: 100vh;
     }
-    .glass-card {
-      background: rgba(17, 24, 39, 0.72);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    .handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      line-height: 1.5;
     }
-    .glass-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+    .postcard-card {
+      background: #ffffff;
+      border: 1.5px solid #f0e6dc;
+      box-shadow: 0 10px 25px -5px rgba(120, 100, 90, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .accent-red { border-top: 3px solid #ef4444; }
-    .accent-green { border-top: 3px solid #10b981; }
-    .accent-blue { border-top: 3px solid #3b82f6; }
-    .accent-red:hover { border-color: rgba(239, 68, 68, 0.5); }
-    .accent-green:hover { border-color: rgba(16, 185, 129, 0.5); }
-    .accent-blue:hover { border-color: rgba(59, 130, 246, 0.5); }
+    .postcard-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px -8px rgba(120, 100, 90, 0.15);
+    }
+    .highlight-pink { background: rgba(255, 192, 203, 0.45); padding: 0 5px; border-radius: 4px; }
+    .highlight-yellow { background: rgba(255, 243, 176, 0.6); padding: 0 5px; border-radius: 4px; }
+    .highlight-blue { background: rgba(199, 228, 255, 0.5); padding: 0 5px; border-radius: 4px; }
+    .highlight-purple { background: rgba(224, 209, 255, 0.45); padding: 0 5px; border-radius: 4px; }
+
+    #envelope-screen {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .envelope-box {
+      background: #fffcf8;
+      border: 2px dashed #e8d7cb;
+      box-shadow: 0 20px 40px rgba(120, 100, 90, 0.12);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .envelope-box:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px rgba(120, 100, 90, 0.2);
+    }
   </style>
 </head>
-<body class="antialiased selection:bg-blue-500/30">
+<body class="antialiased selection:bg-pink-200">
 
-  <!-- Header -->
-  <header class="max-w-5xl mx-auto px-6 pt-12 pb-8 text-center">
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium tracking-wider uppercase text-slate-300 mb-5">
-      <span class="w-2 h-2 rounded-full bg-red-500"></span>
-      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-      <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-      <span class="ml-1">A Space Built For You</span>
-    </div>
-    <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
-      Keep Going, <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-emerald-400 to-blue-400">You’ve Got This.</span>
-    </h1>
-    <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-      Kumpulan catatan kecil dari orang-orang yang percaya sama kamu. Kapan pun hari terasa berat, buka halaman ini dan ingat kalau kamu nggak pernah jalan sendirian.
-    </p>
-
-    <!-- Action Buttons -->
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-      <button onclick="openModal()" class="px-5 py-2.5 rounded-lg bg-white text-slate-950 font-semibold text-sm hover:bg-slate-200 transition shadow-lg shadow-white/5 flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        Tulis Pesan Baru
-      </button>
-      <button onclick="triggerBoost()" class="px-5 py-2.5 rounded-lg bg-slate-800/90 text-slate-200 border border-slate-700 font-medium text-sm hover:bg-slate-800 hover:border-slate-600 transition flex items-center gap-2">
-        <span>⚡</span> Suntikan Semangat Acak
-      </button>
-    </div>
-
-    <!-- Filter Tabs -->
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs">
-      <button onclick="filterMessages('all')" id="filter-all" class="filter-btn active px-3.5 py-1.5 rounded-md bg-white/15 text-white font-medium transition">Semua Pesan</button>
-      <button onclick="filterMessages('red')" id="filter-red" class="filter-btn px-3.5 py-1.5 rounded-md bg-white/5 text-slate-400 hover:text-white transition flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-red-500"></span> Energi & Semangat
-      </button>
-      <button onclick="filterMessages('green')" id="filter-green" class="filter-btn px-3.5 py-1.5 rounded-md bg-white/5 text-slate-400 hover:text-white transition flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Tenang & Apresiasi
-      </button>
-      <button onclick="filterMessages('blue')" id="filter-blue" class="filter-btn px-3.5 py-1.5 rounded-md bg-white/5 text-slate-400 hover:text-white transition flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Fokus & Keyakinan
-      </button>
-    </div>
-  </header>
-
-  <!-- Boost Banner (Hidden by default) -->
-  <div id="boost-banner" class="hidden max-w-2xl mx-auto px-6 mb-8">
-    <div class="glass-card rounded-xl p-5 border-l-4 border-blue-500 flex items-start justify-between gap-4">
-      <div>
-        <p class="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-1">Reminder For Today</p>
-        <p id="boost-text" class="text-slate-200 text-sm md:text-base italic"></p>
+  <!-- ================= ENVELOPE OPENING SCREEN ================= -->
+  <div id="envelope-screen" class="fixed inset-0 z-50 bg-[#fcf9f4] flex flex-col items-center justify-center p-4">
+    <div class="text-center mb-8 max-w-md px-4">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#f0e6dc] text-xs font-semibold uppercase tracking-wider text-rose-500 mb-4 shadow-sm">
+        <span>🌷</span> A Gentle Delivery For You
       </div>
-      <button onclick="document.getElementById('boost-banner').classList.add('hidden')" class="text-slate-500 hover:text-slate-300 text-sm">✕</button>
+      <h2 class="text-2xl md:text-3xl font-bold text-[#4a3b35] mb-2">You Have a Special Letter 💌</h2>
+      <p class="text-[#7d6b63] text-sm">Tap the pastel envelope below to open your bouquet wall of sweet encouragement.</p>
+    </div>
+
+    <!-- The Interactive Envelope -->
+    <div onclick="openEnvelope()" class="envelope-box relative w-72 md:w-80 h-48 md:h-52 rounded-2xl flex flex-col items-center justify-center p-6 overflow-hidden group">
+      <div class="absolute z-20 w-12 h-12 rounded-full bg-gradient-to-tr from-pink-300 via-rose-300 to-amber-200 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+        <span class="text-white text-lg">✨</span>
+      </div>
+      <div class="text-center mt-6 z-10">
+        <p class="text-xs uppercase tracking-widest text-[#9c8980] font-bold mb-1">Tap To Unseal</p>
+        <p class="text-[#4a3b35] font-bold text-sm">Open Envelope</p>
+      </div>
+      <div class="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-pink-300 via-yellow-200 to-blue-200"></div>
     </div>
   </div>
 
-  <!-- Wall Grid -->
-  <main class="max-w-5xl mx-auto px-6 pb-20">
-    <div id="loading" class="text-center py-12 text-slate-500 text-sm">Memuat catatan penyemangat...</div>
-    <div id="wall-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-  </main>
+  <!-- ================= MAIN WEBSITE CONTENT ================= -->
+  <div id="main-content" class="opacity-0 transition-opacity duration-1000 hidden">
+    <!-- Header -->
+    <header class="max-w-5xl mx-auto px-6 pt-12 pb-8 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#f0e6dc] text-xs font-semibold uppercase tracking-wider text-rose-500 mb-5 shadow-sm">
+        <span>🌸</span> A Safe Space Built With Love
+      </div>
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-[#4a3b35] mb-4">
+        Keep Going, <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-500 to-teal-600">You’ve Got This.</span>
+      </h1>
+      <p class="text-[#7d6b63] max-w-xl mx-auto text-sm md:text-base leading-relaxed">
+        A cozy collection of bouquets and sweet messages from people who cherish you. Whenever your days feel heavy, remember you never walk alone.
+      </p>
 
-  <!-- Modal Form -->
-  <div id="modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="openModal()" class="px-5 py-2.5 rounded-xl bg-[#4a3b35] text-white font-medium text-sm hover:bg-[#332722] transition shadow-md flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          Send a Bouquet & Note
+        </button>
+        <button onclick="triggerBoost()" class="px-5 py-2.5 rounded-xl bg-white border border-[#f0e6dc] text-[#5c4a42] font-medium text-sm hover:bg-[#f9f5f0] transition flex items-center gap-2 shadow-sm">
+          <span>🌿</span> Pick a Soft Reminder
+        </button>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs">
+        <button onclick="filterMessages('all')" id="filter-all" class="filter-btn active px-4 py-1.5 rounded-lg bg-[#4a3b35] text-white font-medium transition shadow-sm">All Bouquets</button>
+        <button onclick="filterMessages('pink')" id="filter-pink" class="filter-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] hover:text-[#4a3b35] transition flex items-center gap-1.5 shadow-sm">
+          🌷 Pink Roses
+        </button>
+        <button onclick="filterMessages('yellow')" id="filter-yellow" class="filter-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] hover:text-[#4a3b35] transition flex items-center gap-1.5 shadow-sm">
+          🌻 Warm Sunflowers
+        </button>
+        <button onclick="filterMessages('blue')" id="filter-blue" class="filter-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] hover:text-[#4a3b35] transition flex items-center gap-1.5 shadow-sm">
+          🦋 Pastel Blue
+        </button>
+        <button onclick="filterMessages('purple')" id="filter-purple" class="filter-btn px-4 py-1.5 rounded-lg bg-white border border-[#f0e6dc] text-[#7d6b63] hover:text-[#4a3b35] transition flex items-center gap-1.5 shadow-sm">
+          💜 Lavender Dreams
+        </button>
+      </div>
+    </header>
+
+    <!-- Boost Banner -->
+    <div id="boost-banner" class="hidden max-w-2xl mx-auto px-6 mb-8">
+      <div class="postcard-card rounded-2xl p-5 border-l-4 border-rose-300 flex items-start justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-wider text-rose-500 font-bold mb-1">Today's Sweet Blossom</p>
+          <p id="boost-text" class="text-[#5c4a42] text-sm md:text-base handwritten italic"></p>
+        </div>
+        <button onclick="document.getElementById('boost-banner').classList.add('hidden')" class="text-[#a89990] hover:text-[#4a3b35] text-sm font-bold">✕</button>
+      </div>
+    </div>
+
+    <!-- Wall Grid -->
+    <main class="max-w-5xl mx-auto px-6 pb-20">
+      <div id="loading" class="text-center py-12 text-[#9c8980] text-sm font-medium">Gathering lovely bouquets...</div>
+      <div id="wall-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </main>
+  </div>
+
+  <!-- ================= POSTCARD READER MODAL (FULL VIEW) ================= -->
+  <div id="postcard-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="postcard-card rounded-3xl max-w-3xl w-full p-6 md:p-8 relative shadow-2xl border border-[#f0e6dc]">
+      <button onclick="closePostcardModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f9f5f0] text-[#7d6b63] flex items-center justify-center hover:bg-[#f0e6dc] transition font-bold">✕</button>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <!-- Bouquet Illustration Left -->
+        <div id="modal-bouquet-art" class="flex justify-center p-4 bg-[#fcf9f4] rounded-2xl border border-[#f7f0e8]">
+          <!-- SVG injected dynamically -->
+        </div>
+        <!-- Letter Right -->
+        <div class="flex flex-col justify-between h-full space-y-4">
+          <div>
+            <p id="modal-date" class="text-xs font-semibold text-[#a89990] uppercase tracking-wider mb-2"></p>
+            <h3 class="text-lg font-bold text-[#4a3b35] mb-3">To the one I love,</h3>
+            <div id="modal-content" class="handwritten text-[#5c4a42] bg-[#fcf9f4] p-4 rounded-xl border border-[#f7f0e8] min-h-[140px]"></div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-[#f7f0e8]">
+            <span id="modal-sender" class="text-xs font-bold text-[#7d6b63]"></span>
+            <div class="flex items-center gap-1.5 text-xs text-rose-500 font-semibold">
+              <span>💖</span> <span id="modal-likes">0</span> appreciations
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SUBMISSION FORM MODAL ================= -->
+  <div id="modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="postcard-card rounded-3xl max-w-md w-full p-6 md:p-8 relative shadow-2xl">
       <div class="flex items-center justify-between mb-5">
-        <h2 class="text-lg font-semibold text-white">Kirim Catatan Penyemangat</h2>
-        <button onclick="closeModal()" class="text-slate-400 hover:text-white">✕</button>
+        <h2 class="text-lg font-bold text-[#4a3b35]">Send a Bouquet & Note 💐</h2>
+        <button onclick="closeModal()" class="text-[#a89990] hover:text-[#4a3b35] font-bold">✕</button>
       </div>
 
       <form id="message-form" class="space-y-4">
         <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">Dari Siapa</label>
-          <input type="text" id="sender" required placeholder="Nama / inisial kamu" class="w-full px-3.5 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500">
+          <label class="block text-xs font-bold text-[#7d6b63] mb-1.5">From Who (Your Name / Initial)</label>
+          <input type="text" id="sender" required placeholder="e.g., Your Loving Partner" class="w-full px-4 py-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] text-sm text-[#4a3b35] focus:outline-none focus:border-rose-400">
         </div>
 
         <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">Nuansa Aksen Kartu</label>
-          <div class="grid grid-cols-3 gap-2.5">
+          <label class="block text-xs font-bold text-[#7d6b63] mb-1.5">Choose Bouquet Theme</label>
+          <div class="grid grid-cols-2 gap-2.5 text-xs font-semibold">
             <label class="cursor-pointer">
-              <input type="radio" name="category" value="red" class="peer sr-only" checked>
-              <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 peer-checked:border-red-500 peer-checked:bg-red-500/10 text-center text-xs font-medium text-slate-300">
-                <span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-1"></span> Red
+              <input type="radio" name="category" value="pink" class="peer sr-only" checked>
+              <div class="p-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-rose-400 peer-checked:bg-rose-50 text-center text-[#5c4a42]">
+                🌷 Pink Roses
               </div>
             </label>
             <label class="cursor-pointer">
-              <input type="radio" name="category" value="green" class="peer sr-only">
-              <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-center text-xs font-medium text-slate-300">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> Green
+              <input type="radio" name="category" value="yellow" class="peer sr-only">
+              <div class="p-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-amber-400 peer-checked:bg-amber-50 text-center text-[#5c4a42]">
+                🌻 Sunflowers
               </div>
             </label>
             <label class="cursor-pointer">
               <input type="radio" name="category" value="blue" class="peer sr-only">
-              <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 peer-checked:border-blue-500 peer-checked:bg-blue-500/10 text-center text-xs font-medium text-slate-300">
-                <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1"></span> Blue
+              <div class="p-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-sky-400 peer-checked:bg-sky-50 text-center text-[#5c4a42]">
+                🦋 Pastel Blue
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="category" value="purple" class="peer sr-only">
+              <div class="p-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] peer-checked:border-purple-400 peer-checked:bg-purple-50 text-center text-[#5c4a42]">
+                💜 Lavender
               </div>
             </label>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">Pesan Untuknya</label>
-          <textarea id="content" rows="4" required placeholder="Tulis kata-kata penyemangat, apresiasi, atau doa terbaik..." class="w-full px-3.5 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+          <label class="block text-xs font-bold text-[#7d6b63] mb-1.5">Your Sweet Message</label>
+          <textarea id="content" rows="4" required placeholder="Write your words of encouragement, love, and appreciation here..." class="w-full px-4 py-2.5 rounded-xl bg-[#fcf9f4] border border-[#f0e6dc] text-sm text-[#4a3b35] focus:outline-none focus:border-rose-400"></textarea>
+          <p class="text-[11px] text-[#a89990] mt-1">✨ Words will be hand-styled with matching pastel highlighters automatically.</p>
         </div>
 
-        <button type="submit" id="submit-btn" class="w-full py-2.5 rounded-lg bg-white text-slate-950 font-semibold text-sm hover:bg-slate-200 transition">
-          Tempel ke Wall
+        <button type="submit" id="submit-btn" class="w-full py-3 rounded-xl bg-[#4a3b35] text-white font-bold text-sm hover:bg-[#332722] transition shadow-md">
+          Tie Ribbon & Send
         </button>
       </form>
     </div>
   </div>
 
   <script>
-    // =================================================================
-    // GANTI DUA BARIS DI BAWAH INI DENGAN PROJECT URL & ANON KEY MILIKMU
-    // =================================================================
     const SUPABASE_URL = 'https://ydbennrbvouvlrchpqdt.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_DWctMYcYbAgKk074Uys45A_umsYCPqT';
+    const SUPABASE_ANON_KEY = 'sb_publishable_DwctMYcYbAgKk074Uys45A_umsYCPqT';
 
     const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -160,11 +236,86 @@
     let currentFilter = 'all';
 
     const defaultBoosts = [
-      "Progres kecil setiap hari tetaplah sebuah kemajuan. Jangan lupa istirahat sejenak.",
-      "Kamu sudah melewati banyak hari sulit sebelumnya, dan hari ini pun pasti bisa kamu taklukkan.",
-      "Fokus pada apa yang bisa kamu kendalikan hari ini. Kamu jauh lebih kuat dari yang kamu kira.",
-      "Terima kasih sudah berjuang sejauh ini. Bangga banget sama prosesmu!"
+      "Small daily progress adds up to wonderful things. Take a deep breath and smile.",
+      "You have conquered every hard day before this one. Today is no exception.",
+      "Focus on what you can control today. You are much stronger than you realize.",
+      "Thank you for fighting so hard. I am endlessly proud of your journey!"
     ];
+
+    // SVG Bouquet Generators matching theme colors
+    function getBouquetSvg(category) {
+      let ribbonColor = "#f472b6";
+      let wrapColor = "#fdf2f8";
+      let flowerCenter = "#fbbf24";
+      let petal1 = "#f43f5e";
+      let petal2 = "#fb7185";
+
+      if (category === 'yellow') {
+        ribbonColor = "#fbbf24";
+        wrapColor = "#fffbeb";
+        petal1 = "#f59e0b";
+        petal2 = "#fbbf24";
+      } else if (category === 'blue') {
+        ribbonColor = "#38bdf8";
+        wrapColor = "#f0f9ff";
+        petal1 = "#0ea5e9";
+        petal2 = "#38bdf8";
+      } else if (category === 'purple') {
+        ribbonColor = "#c084fc";
+        wrapColor = "#faf5ff";
+        petal1 = "#a855f7";
+        petal2 = "#c084fc";
+      }
+
+      return `
+        <svg viewBox="0 0 200 220" class="w-36 h-36 md:w-44 md:h-44 drop-shadow-sm">
+          <!-- Wrapper Papers -->
+          <path d="M60 120 L100 200 L140 120 Z" fill="${wrapColor}" stroke="#4a3b35" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M50 100 Q100 80 150 100 L130 180 Q100 205 70 180 Z" fill="${wrapColor}" opacity="0.85" stroke="#4a3b35" stroke-width="2.5"/>
+          
+          <!-- Stems -->
+          <line x1="90" y1="120" x2="80" y2="180" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="110" x2="100" y2="190" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+          <line x1="110" y1="120" x2="120" y2="180" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- Flowers Cluster -->
+          <circle cx="85" cy="85" r="18" fill="${petal1}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="85" cy="85" r="6" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="115" cy="80" r="16" fill="${petal2}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="115" cy="80" r="5" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="100" cy="65" r="17" fill="${petal1}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="100" cy="65" r="6" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="70" cy="100" r="14" fill="${petal2}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="70" cy="100" r="4" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <circle cx="130" cy="95" r="15" fill="${petal2}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="130" cy="95" r="5" fill="${flowerCenter}" stroke="#4a3b35" stroke-width="1.5"/>
+
+          <!-- Ribbon Bow -->
+          <path d="M85 160 Q100 150 115 160 Q125 175 110 180 Q100 165 90 180 Q75 175 85 160 Z" fill="${ribbonColor}" stroke="#4a3b35" stroke-width="2"/>
+          <circle cx="100" cy="163" r="6" fill="${ribbonColor}" stroke="#4a3b35" stroke-width="2"/>
+        </svg>
+      `;
+    }
+
+    function openEnvelope() {
+      confetti({ particleCount: 90, spread: 80, origin: { y: 0.5 }, colors: ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc'] });
+      
+      const screen = document.getElementById('envelope-screen');
+      screen.style.opacity = '0';
+      screen.style.transform = 'scale(1.05)';
+      
+      setTimeout(() => {
+        screen.style.display = 'none';
+        const main = document.getElementById('main-content');
+        main.classList.remove('hidden');
+        setTimeout(() => main.classList.remove('opacity-0'), 50);
+        fetchMessages();
+      }, 600);
+    }
 
     async function fetchMessages() {
       const { data, error } = await db
@@ -177,8 +328,8 @@
       if (error) {
         console.error(error);
         document.getElementById('wall-grid').innerHTML = `
-          <div class="col-span-full text-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-            Koneksi database belum diatur atau URL/Key salah. Pastikan SUPABASE_URL dan SUPABASE_ANON_KEY sudah diisi dengan benar.
+          <div class="col-span-full text-center text-sm text-rose-500 bg-rose-50 border border-rose-200 rounded-2xl p-4">
+            Unable to load bouquet messages from database.
           </div>`;
         return;
       }
@@ -194,38 +345,80 @@
         : allMessages.filter(m => m.category === currentFilter);
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 text-sm">Belum ada catatan di kategori ini. Jadilah yang pertama menulis!</div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-[#9c8980] text-sm font-medium">No bouquets in this theme yet. Be the first to send one!</div>`;
         return;
       }
 
       grid.innerHTML = filtered.map(msg => {
-        const accentClass = msg.category === 'red' ? 'accent-red' : msg.category === 'green' ? 'accent-green' : 'accent-blue';
-        const dotColor = msg.category === 'red' ? 'bg-red-500' : msg.category === 'green' ? 'bg-emerald-500' : 'bg-blue-500';
-        const dateStr = new Date(msg.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+        let bouquetName = '🌷 Pink Roses';
+        let highlightClass = 'highlight-pink';
+        
+        if (msg.category === 'yellow') {
+          bouquetName = '🌻 Warm Sunflower';
+          highlightClass = 'highlight-yellow';
+        } else if (msg.category === 'blue') {
+          bouquetName = '🦋 Pastel Blue';
+          highlightClass = 'highlight-blue';
+        } else if (msg.category === 'purple') {
+          bouquetName = '💜 Lavender Dreams';
+          highlightClass = 'highlight-purple';
+        }
+
+        const dateStr = new Date(msg.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const svgArt = getBouquetSvg(msg.category);
+
+        // Escape content safely for JSON embedding in onclick
+        const safeContent = encodeURIComponent(msg.content);
+        const safeSender = encodeURIComponent(msg.sender);
 
         return `
-          <div class="glass-card ${accentClass} rounded-xl p-5 flex flex-col justify-between">
-            <p class="text-slate-200 text-sm leading-relaxed whitespace-pre-line mb-5">"${escapeHtml(msg.content)}"</p>
-            <div class="flex items-center justify-between pt-3 border-t border-white/5 text-xs">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full ${dotColor}"></span>
-                <span class="font-medium text-slate-300">${escapeHtml(msg.sender)}</span>
-                <span class="text-slate-600">• ${dateStr}</span>
+          <div onclick="openPostcardModal('${bouquetName}', '${safeContent}', '${safeSender}', '${dateStr}', ${msg.likes || 0}, '${msg.category}')" class="postcard-card rounded-2xl p-5 flex flex-col items-center text-center cursor-pointer relative group">
+            <div class="mb-3 transform group-hover:scale-105 transition-transform duration-300">
+              ${svgArt}
+            </div>
+            <div class="w-full">
+              <div class="flex items-center justify-between mb-2 text-xs">
+                <span class="px-2.5 py-0.5 rounded-md bg-[#fcf9f4] border border-[#f0e6dc] font-bold text-[#7d6b63]">${bouquetName}</span>
+                <span class="text-[#a89990]">${dateStr}</span>
               </div>
-              <button onclick="likeMessage(${msg.id}, ${msg.likes || 0})" class="flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition">
-                <span>👏</span> <span>${msg.likes || 0}</span>
-              </button>
+              <p class="handwritten text-[#5c4a42] line-clamp-2 my-2">"<span class="${highlightClass}">${escapeHtml(msg.content)}</span>"</p>
+              <div class="flex items-center justify-between pt-3 border-t border-[#f7f0e8] text-xs mt-2">
+                <span class="font-bold text-[#7d6b63]">From: ${escapeHtml(msg.sender)}</span>
+                <span class="text-rose-500 font-semibold flex items-center gap-1">❤️ ${msg.likes || 0}</span>
+              </div>
             </div>
           </div>
         `;
       }).join('');
     }
 
+    function openPostcardModal(bouquetName, encodedContent, encodedSender, dateStr, likes, category) {
+      const content = decodeURIComponent(encodedContent);
+      const sender = decodeURIComponent(encodedSender);
+      
+      let highlightClass = 'highlight-pink';
+      if (category === 'yellow') highlightClass = 'highlight-yellow';
+      if (category === 'blue') highlightClass = 'highlight-blue';
+      if (category === 'purple') highlightClass = 'highlight-purple';
+
+      document.getElementById('modal-bouquet-art').innerHTML = getBouquetSvg(category);
+      document.getElementById('modal-date').textContent = `${bouquetName} • ${dateStr}`;
+      document.getElementById('modal-content').innerHTML = `"<span class="${highlightClass}">${escapeHtml(content)}</span>"`;
+      document.getElementById('modal-sender').textContent = `From: ${escapeHtml(sender)}`;
+      document.getElementById('modal-likes').textContent = likes;
+
+      document.getElementById('postcard-modal').classList.remove('hidden');
+    }
+
+    function closePostcardModal() {
+      document.getElementById('postcard-modal').classList.add('hidden');
+    }
+
     document.getElementById('message-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('submit-btn');
       btn.disabled = true;
-      btn.textContent = 'Menyimpan...';
+      btn.textContent = 'Tying ribbon...';
 
       const sender = document.getElementById('sender').value.trim();
       const content = document.getElementById('content').value.trim();
@@ -234,32 +427,27 @@
       const { error } = await db.from('messages').insert([{ sender, category, content, likes: 0 }]);
 
       btn.disabled = false;
-      btn.textContent = 'Tempel ke Wall';
+      btn.textContent = 'Tie Ribbon & Send';
 
       if (!error) {
         document.getElementById('message-form').reset();
         closeModal();
-        confetti({ particleCount: 45, spread: 60, origin: { y: 0.7 }, colors: ['#ef4444', '#10b981', '#3b82f6'] });
+        confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 }, colors: ['#f472b6', '#fbbf24', '#38bdf8', '#c084fc'] });
         fetchMessages();
       } else {
-        alert('Gagal mengirim pesan. Cek koneksi atau pengaturan Supabase.');
+        alert('Failed to send bouquet. Please check your connection.');
       }
     });
-
-    async function likeMessage(id, currentLikes) {
-      await db.from('messages').update({ likes: currentLikes + 1 }).eq('id', id);
-      fetchMessages();
-    }
 
     function filterMessages(cat) {
       currentFilter = cat;
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-white/15', 'text-white');
-        btn.classList.add('bg-white/5', 'text-slate-400');
+        btn.classList.remove('bg-[#4a3b35]', 'text-white');
+        btn.classList.add('bg-white', 'text-[#7d6b63]', 'border', 'border-[#f0e6dc]');
       });
       const activeBtn = document.getElementById(`filter-${cat}`);
-      activeBtn.classList.remove('bg-white/5', 'text-slate-400');
-      activeBtn.classList.add('bg-white/15', 'text-white');
+      activeBtn.classList.remove('bg-white', 'text-[#7d6b63]', 'border', 'border-[#f0e6dc]');
+      activeBtn.classList.add('bg-[#4a3b35]', 'text-white');
       renderWall();
     }
 
@@ -268,7 +456,7 @@
       const randomQuote = pool[Math.floor(Math.random() * pool.length)];
       document.getElementById('boost-text').textContent = randomQuote;
       document.getElementById('boost-banner').classList.remove('hidden');
-      confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 }, colors: ['#ef4444', '#10b981', '#3b82f6'] });
+      confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 }, colors: ['#f472b6', '#fbbf24'] });
     }
 
     function openModal() { document.getElementById('modal').classList.remove('hidden'); }
@@ -277,8 +465,6 @@
     function escapeHtml(str) {
       return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
     }
-
-    fetchMessages();
   </script>
 </body>
 </html>
